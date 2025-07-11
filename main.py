@@ -1,4 +1,5 @@
 from app.record import AudioRecorder
+from app.transcribe import Transcriber
         
 if __name__ == "__main__":
     recorder = AudioRecorder()
@@ -8,8 +9,11 @@ if __name__ == "__main__":
 
     name = input("Enter file name (or press Enter to auto-generate): ").strip()
     if name == "":
-        recorder.save_audio()
+        filename = recorder.save_audio()
     else:
-        recorder.save_audio(name)
-        
+        filename = recorder.save_audio(name)
+    
+    transcriber = Transcriber(AUDIO_FILE=filename)
+    result = transcriber.transcribe()
+    transcriber.save_transcript(result)    
         

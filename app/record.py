@@ -1,15 +1,16 @@
 import pyaudio as pa
 import wave as wv
+from datetime import datetime
 
 class AudioRecorder:      
-    def __init__(self,chunk = 1024, rate = 44100, format = pa.paInt16, channel = 1):
+    def __init__(self,chunk: int = 1024, rate: int = 16000, format: int = pa.paInt16, channel: int = 1):
         self.CHUNK = chunk
         self.RATE = rate
         self.FORMAT = format
         self.CHANNELS = channel
         self.FRAMES = []
 
-    def record_audio(self, RECORD_SECONDS):    
+    def record_audio(self, RECORD_SECONDS: int):    
         self.FRAMES = []
         audio = pa.PyAudio()
         
@@ -33,12 +34,11 @@ class AudioRecorder:
         stream.close()
         audio.terminate()
 
-    def save_audio(self, OUTPUT_FILENAME = None):
-        from datetime import datetime
+    def save_audio(self, OUTPUT_FILENAME: str = None) -> str:
         if OUTPUT_FILENAME:
             filename = f"{OUTPUT_FILENAME}.wav"
         else:
-            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            timestamp = datetime.now().strftime("D_%d-%m-%Y_T_%H-%M-%S")
             filename = f"{timestamp}.wav"
         
         path = f"audio/recordings/{filename}"
@@ -54,3 +54,5 @@ class AudioRecorder:
         wav.close()
 
         print(f"Saved to {filename}")
+        
+        return filename
