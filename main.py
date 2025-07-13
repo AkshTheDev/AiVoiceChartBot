@@ -1,5 +1,6 @@
 from app.record import AudioRecorder
-from app.transcribe import Transcriber
+# from app.transcribe import Transcriber
+from app.fastertranscriber import FasterWhisperTranscriber
         
 if __name__ == "__main__":
     recorder = AudioRecorder()
@@ -13,7 +14,10 @@ if __name__ == "__main__":
     else:
         filename = recorder.save_audio(name)
     
-    transcriber = Transcriber(AUDIO_FILE=filename)
-    result = transcriber.transcribe()
-    transcriber.save_transcript(result)    
+    # transcriber = Transcriber(AUDIO_FILE=filename)
+    # result = transcriber.transcribe()
+    # transcriber.save_transcript(result) 
+    Transcriber = FasterWhisperTranscriber(AUDIO_FILE=filename)
+    result = Transcriber.transcribe()
+    Transcriber.save_transcript(result)
         

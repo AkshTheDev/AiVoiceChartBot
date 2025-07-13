@@ -5,3 +5,5 @@ __pycache__/
 .env
 recordings/
 transcripts/
+compare.py
+test_record.py
