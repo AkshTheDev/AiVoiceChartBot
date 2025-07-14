@@ -1,7 +1,7 @@
 from app.record import AudioRecorder
 # from app.transcribe import Transcriber
 from app.fastertranscriber import FasterWhisperTranscriber
-        
+from app.intent_extractor import IntentExtractor
 if __name__ == "__main__":
     recorder = AudioRecorder()
 
@@ -19,5 +19,7 @@ if __name__ == "__main__":
     # transcriber.save_transcript(result) 
     Transcriber = FasterWhisperTranscriber(AUDIO_FILE=filename)
     result = Transcriber.transcribe()
-    Transcriber.save_transcript(result)
+    entity = IntentExtractor(result).extract_intent()
+    print(entity)
+    # Transcriber.save_transcript(result)
         
